@@ -37,8 +37,8 @@ val networkModule = module{
     fun provideNetworkApi(okHttpClient: OkHttpClient, moshi: Moshi) =
         Retrofit.Builder()
             .baseUrl(JokeApi.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .client(OkHttpClient())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(okHttpClient)
             .build()
             .create(JokeApi::class.java)
 
