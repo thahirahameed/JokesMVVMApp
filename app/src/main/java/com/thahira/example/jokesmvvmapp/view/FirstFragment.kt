@@ -29,10 +29,13 @@ class FirstFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.randomJokeObserver.observe(viewLifecycleOwner,::handleResult)
+
+
 
         binding.randomJoke.setOnClickListener(){
             viewModel.getRandomJoke()
+            viewModel.randomJokeObserver.observe(viewLifecycleOwner,::handleResult)
+
         }
 
         binding.endlessJokes.setOnClickListener(){
@@ -70,8 +73,9 @@ class FirstFragment() : Fragment() {
 
     private fun getRandomJoke(joke: SingleJoke)
     {
-        Toast.makeText(context,joke.value.joke,Toast.LENGTH_LONG).show()
-        //binding.randomJokeText.text = joke.value.joke
+        //val randJoke : String? = joke.value.joke
+        //Toast.makeText(context,randJoke,Toast.LENGTH_LONG).show()
+        binding.singleJokeText.text = joke.value.joke
     }
 
     companion object {

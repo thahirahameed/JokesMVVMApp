@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.thahira.example.jokesmvvmapp.adapter.JokesRecyclerViewAdapter
 import com.thahira.example.jokesmvvmapp.databinding.FragmentJokesBinding
 import com.thahira.example.jokesmvvmapp.model.Jokes
@@ -37,6 +38,20 @@ class JokesFragment : Fragment() {
         binding.jokesRecycler.apply{
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
             adapter= jokesRecyclerViewAdapter
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                   val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisible = layoutManager.findLastVisibleItemPosition()
+                    val endHasBeenReached = lastVisible + 5 >=totalItemCount
+
+                    if(totalItemCount>0 && endHasBeenReached){
+                        viewModel.getJokes()
+                    }
+
+                }
+            })
         }
         return binding.root
     }

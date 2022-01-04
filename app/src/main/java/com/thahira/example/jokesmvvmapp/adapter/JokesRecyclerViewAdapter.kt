@@ -1,5 +1,6 @@
 package com.thahira.example.jokesmvvmapp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class JokesRecyclerViewAdapter(
     fun loadJokes(jokes: List<Jokes>){
         values.addAll(jokes[0].value)
         notifyDataSetChanged()
+        Log.e("Adapter","Data loaded")
     }
 }
 
